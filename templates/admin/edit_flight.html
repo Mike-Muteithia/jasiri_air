@@ -12,7 +12,13 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Airline Name</label>
-                        <input type="text" name="airline_name" class="form-control" value="{{ flight.airline_name }}" required>
+                        <select name="airline_name" class="form-select" required>
+                            <option value="Jasiri Air" {% if flight.airline_name == 'Jasiri Air' %}selected{% endif %}>Jasiri Air</option>
+                            <option value="Kenya Airways" {% if flight.airline_name == 'Kenya Airways' %}selected{% endif %}>Kenya Airways</option>
+                            <option value="Jambojet" {% if flight.airline_name == 'Jambojet' %}selected{% endif %}>Jambojet</option>
+                            <option value="Ethiopian Airlines" {% if flight.airline_name == 'Ethiopian Airlines' %}selected{% endif %}>Ethiopian Airlines</option>
+                            <option value="Emirates" {% if flight.airline_name == 'Emirates' %}selected{% endif %}>Emirates</option>
+                        </select>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Departure City</label>

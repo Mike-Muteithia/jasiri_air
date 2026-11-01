@@ -7,19 +7,30 @@
         <h1 class="display-3 fw-bold mb-3">Welcome to Jasiri Air</h1>
         <p class="lead mb-5">Unrivaled comfort. Unbeatable reliability. Fly the African skies with courage.</p>
         
-        <form action="{{ url_for('search_flights') }}" method="GET" class="bg-white text-dark p-4 rounded-4 text-start shadow-lg mx-auto" style="max-width: 1000px;">
+        <form action="{{ url_for('search_flights') }}" method="GET" class="bg-white text-dark p-4 rounded-4 text-start shadow-lg mx-auto" style="max-width: 1200px;">
             <div class="row g-3">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label class="form-label fw-bold text-muted small text-uppercase">From</label>
                     <input type="text" name="departure" class="form-control form-control-lg bg-light" placeholder="e.g. Nairobi" required>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label class="form-label fw-bold text-muted small text-uppercase">To</label>
                     <input type="text" name="destination" class="form-control form-control-lg bg-light" placeholder="e.g. Mombasa" required>
                 </div>
                 <div class="col-md-2">
                     <label class="form-label fw-bold text-muted small text-uppercase">Date</label>
                     <input type="date" name="date" class="form-control form-control-lg bg-light" required min="{{ today_date }}">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-bold text-muted small text-uppercase">Airline</label>
+                    <select name="airline" class="form-select form-control-lg bg-light">
+                        <option value="">Any Airline</option>
+                        <option value="Jasiri Air">Jasiri Air</option>
+                        <option value="Kenya Airways">Kenya Airways</option>
+                        <option value="Jambojet">Jambojet</option>
+                        <option value="Ethiopian Airlines">Ethiopian Airlines</option>
+                        <option value="Emirates">Emirates</option>
+                    </select>
                 </div>
                 <div class="col-md-2">
                     <label class="form-label fw-bold text-muted small text-uppercase">Passengers</label>

@@ -71,6 +71,7 @@ def search_flights():
     flight_date_str = request.args.get('date', '')
     passengers = request.args.get('passengers', 1, type=int)
     travel_class = request.args.get('travel_class', '')
+    airline = request.args.get('airline', '')
 
     # Base query: Only show flights that have enough seats for the requested passengers
     query = Flight.query.filter(Flight.available_seats >= passengers)
@@ -84,6 +85,8 @@ def search_flights():
         query = query.filter(Flight.departure_date == date.fromisoformat(flight_date_str))
     if travel_class:
         query = query.filter(Flight.travel_class == travel_class)
+    if airline:
+        query = query.filter(Flight.airline_name == airline)
         
     flights = query.all()
     
