@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow-sm border-0 mx-auto" style="max-width: 800px;">
+        <div class="card-header bg-primary text-white fw-bold">Add New Flight</div>
+        <div class="card-body p-4">
+            <form action="{{ url_for('add_flight') }}" method="POST">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Flight Number</label>
+                        <input type="text" name="flight_number" class="form-control text-uppercase" required placeholder="e.g. SL300">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Airline Name</label>
+                        <input type="text" name="airline_name" class="form-control" value="SkyLink Airlines" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Departure City</label>
+                        <input type="text" name="departure_city" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Destination City</label>
+                        <input type="text" name="destination_city" class="form-control" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Departure Date</label>
+                        <input type="date" name="departure_date" class="form-control" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Departure Time</label>
+                        <input type="time" name="departure_time" class="form-control" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Arrival Time</label>
+                        <input type="time" name="arrival_time" class="form-control" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Travel Class</label>
+                        <select name="travel_class" class="form-select" required>
+                            <option value="Economy">Economy</option>
+                            <option value="Business">Business</option>
+                            <option value="First Class">First Class</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Ticket Price (KSh)</label>
+                        <input type="number" step="0.01" name="ticket_price" class="form-control" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Total Seats</label>
+                        <input type="number" name="total_seats" class="form-control" required>
+                    </div>
+                </div>
+                <div class="mt-4 text-end">
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary me-2">Cancel</a>
+                    <button type="submit" class="btn btn-success fw-bold">Save Flight</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

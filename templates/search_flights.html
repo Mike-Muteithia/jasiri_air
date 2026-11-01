@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4 fw-bold">Flight Search Results</h2>
+    
+    {% if flights %}
+    <div class="table-responsive shadow-sm bg-white rounded border">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-primary text-nowrap">
+                <tr>
+                    <th>Flight Number</th>
+                    <th>Airline</th>
+                    <th>Departure</th>
+                    <th>Destination</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Time</th>
+                    <th>Ticket Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for flight in flights %}
+                <tr>
+                    <td class="fw-bold">{{ flight.flight_number }}</td>
+                    <td>{{ flight.airline_name }}</td>
+                    <td>{{ flight.departure_city }}</td>
+                    <td>{{ flight.destination_city }}</td>
+                    <!-- strftime formats the time to standard 12-hour AM/PM format -->
+                    <td>{{ flight.departure_time.strftime('%I:%M %p') }}</td>
+                    <td>{{ flight.arrival_time.strftime('%I:%M %p') }}</td>
+                    <td class="fw-bold text-success">KSh {{ "{:,.2f}".format(flight.ticket_price) }}</td>
+                    <td>
+                        <a href="{{ url_for('book_flight', flight_id=flight.flight_id, passengers=passengers) }}" class="btn btn-success btn-sm fw-bold">Book Now</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-warning text-center p-5 shadow-sm">
+        <h4 class="alert-heading fw-bold">No flights available</h4>
+        <p>We couldn't find any flights matching your criteria. Try adjusting your dates or destinations.</p>
+        <hr>
+        <a href="{{ url_for('index') }}" class="btn btn-primary mt-3">Back to Search</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid my-4 px-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Flight Management Dashboard</h2>
+        <div>
+            <span class="me-3 fw-bold text-muted">Logged in as: {{ session['username'] }}</span>
+            <a href="{{ url_for('admin_logout') }}" class="btn btn-outline-danger btn-sm fw-bold">Logout</a>
+        </div>
+    </div>
+
+    <!-- Administrative Action Buttons -->
+    <div class="mb-4">
+        <a href="{{ url_for('add_flight') }}" class="btn btn-primary fw-bold">+ Add New Flight</a>
+        <a href="{{ url_for('manage_bookings') }}" class="btn btn-secondary fw-bold ms-2">Manage Bookings</a>
+    </div>
+
+    <!-- Flights Table (Read Operation) -->
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-dark text-white fw-bold">
+            Registered Flights Inventory
+        </div>
+        <div class="card-body p-0 table-responsive">
+            <table class="table table-hover table-striped align-middle mb-0">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>ID</th>
+                        <th>Flight No.</th>
+                        <th>Route</th>
+                        <th>Date & Time</th>
+                        <th>Class</th>
+                        <th>Price (KSh)</th>
+                        <th>Seats (Avail/Total)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for flight in flights %}
+                    <tr>
+                        <td>{{ flight.flight_id }}</td>
+                        <td class="fw-bold text-primary">{{ flight.flight_number }}</td>
+                        <td>{{ flight.departure_city }} &rarr; {{ flight.destination_city }}</td>
+                        <td>
+                            {{ flight.departure_date.strftime('%d/%m/%Y') }}<br>
+                            <small class="text-muted">{{ flight.departure_time.strftime('%I:%M %p') }}</small>
+                        </td>
+                        <td>{{ flight.travel_class }}</td>
+                        <td>{{ "{:,.2f}".format(flight.ticket_price) }}</td>
+                        <td>
+                            <span class="badge {% if flight.available_seats < 10 %}bg-danger{% else %}bg-success{% endif %}">
+                                {{ flight.available_seats }} / {{ flight.total_seats }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{{ url_for('edit_flight', flight_id=flight.flight_id) }}" class="btn btn-sm btn-warning fw-bold">Edit</a>
+                            <!-- Form used for Delete to prevent accidental clicks via GET request -->
+                            <form action="{{ url_for('delete_flight', flight_id=flight.flight_id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this flight?');">
+                                <button type="submit" class="btn btn-sm btn-danger fw-bold">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

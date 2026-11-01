@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            
+            <!-- Lookup Form -->
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-dark text-white fw-bold">
+                    Retrieve Your Booking
+                </div>
+                <div class="card-body p-4">
+                    <form action="{{ url_for('my_bookings') }}" method="POST">
+                        <div class="row g-3 align-items-end">
+                            <div class="col-md-5">
+                                <label class="form-label fw-bold">Booking Reference (PNR)</label>
+                                <input type="text" name="pnr" class="form-control text-uppercase" placeholder="e.g. WPPEPKHS" required>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label fw-bold">Email Address</label>
+                                <input type="email" name="email" class="form-control" placeholder="Email used for booking" required>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100 fw-bold">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Booking Results -->
+            {% if booking %}
+            <div class="card shadow border-0">
+                <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                    <h5 class="mb-0 fw-bold text-primary">Booking Details</h5>
+                    {% if booking.booking_status == 'Cancelled' %}
+                        <span class="badge bg-danger fs-6">Cancelled</span>
+                    {% else %}
+                        <span class="badge bg-success fs-6">{{ booking.booking_status }}</span>
+                    {% endif %}
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <p class="text-muted mb-0 small text-uppercase fw-bold">Passenger Name</p>
+                            <p class="fw-bold">{{ booking.passenger.full_name }}</p>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <p class="text-muted mb-0 small text-uppercase fw-bold">Flight Number</p>
+                            <p class="fw-bold">{{ booking.flight.flight_number }}</p>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <p class="text-muted mb-0 small text-uppercase fw-bold">Route</p>
+                            <p class="fw-bold">{{ booking.flight.departure_city }} &rarr; {{ booking.flight.destination_city }}</p>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <p class="text-muted mb-0 small text-uppercase fw-bold">Departure Date</p>
+                            <p class="fw-bold">{{ booking.flight.departure_date.strftime('%d/%m/%Y') }} at {{ booking.flight.departure_time.strftime('%I:%M %p') }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white text-end p-3">
+                    <a href="{{ url_for('booking_confirmation', pnr=booking.booking_reference) }}" class="btn btn-outline-primary">View E-Ticket</a>
+                    
+                    {% if booking.booking_status != 'Cancelled' %}
+                    <!-- Cancellation Form -->
+                    <form action="{{ url_for('cancel_booking', pnr=booking.booking_reference) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to cancel this booking? This action cannot be undone.');">
+                        <button type="submit" class="btn btn-danger ms-2">Cancel Booking</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

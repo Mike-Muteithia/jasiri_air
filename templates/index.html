@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Hero Section with Background Image and Search Form -->
+<div class="hero-section text-white text-center py-5">
+    <div class="container">
+        <h1 class="display-3 fw-bold mb-3">Welcome to Jasiri Air</h1>
+        <p class="lead mb-5">Unrivaled comfort. Unbeatable reliability. Fly the African skies with courage.</p>
+        
+        <form action="{{ url_for('search_flights') }}" method="GET" class="bg-white text-dark p-4 rounded-4 text-start shadow-lg mx-auto" style="max-width: 1000px;">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label fw-bold text-muted small text-uppercase">From</label>
+                    <input type="text" name="departure" class="form-control form-control-lg bg-light" placeholder="e.g. Nairobi" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-bold text-muted small text-uppercase">To</label>
+                    <input type="text" name="destination" class="form-control form-control-lg bg-light" placeholder="e.g. Mombasa" required>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-bold text-muted small text-uppercase">Date</label>
+                    <input type="date" name="date" class="form-control form-control-lg bg-light" required min="{{ today_date }}">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-bold text-muted small text-uppercase">Passengers</label>
+                    <input type="number" name="passengers" class="form-control form-control-lg bg-light" min="1" value="1" required>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-bold text-muted small text-uppercase">Class</label>
+                    <select name="travel_class" class="form-select form-control-lg bg-light">
+                        <option value="Economy">Economy</option>
+                        <option value="Business">Business</option>
+                        <option value="First Class">First Class</option>
+                    </select>
+                </div>
+                <div class="col-12 mt-4 text-end">
+                    <button type="submit" class="btn btn-primary btn-lg px-5 fw-bold">Search Flights</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Featured Destinations & Promotional Offers -->
+<div class="container my-5">
+    <h2 class="text-center mb-4 fw-bold">Featured Destinations</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-0">
+                <div class="card-body text-center bg-light rounded">
+                    <h4 class="card-title text-primary">Mombasa</h4>
+                    <p class="card-text">Special offers starting at KSh 8,500.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-0">
+                <div class="card-body text-center bg-light rounded">
+                    <h4 class="card-title text-primary">Kisumu</h4>
+                    <p class="card-text">Discounted weekend getaways from KSh 6,500.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-0">
+                <div class="card-body text-center bg-light rounded">
+                    <h4 class="card-title text-primary">Dubai</h4>
+                    <p class="card-text">Experience luxury at competitive rates.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

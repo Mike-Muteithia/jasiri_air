@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <!-- Flight Summary Column -->
+        <div class="col-md-5 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white fw-bold">
+                    Flight Summary
+                </div>
+                <div class="card-body bg-light">
+                    <p><strong>Flight:</strong> {{ flight.airline_name }} ({{ flight.flight_number }})</p>
+                    <p><strong>Route:</strong> {{ flight.departure_city }} &rarr; {{ flight.destination_city }}</p>
+                    <p><strong>Date & Time:</strong> {{ flight.departure_date.strftime('%d/%m/%Y') }} at {{ flight.departure_time.strftime('%I:%M %p') }}</p>
+                    <p><strong>Travel Class:</strong> {{ flight.travel_class }}</p>
+                    <hr>
+                    <p><strong>Price per Ticket:</strong> KSh {{ "{:,.2f}".format(flight.ticket_price) }}</p>
+                    <p><strong>Passengers:</strong> {{ passengers }}</p>
+                    <h4 class="text-success fw-bold mt-3">Total Cost: KSh {{ "{:,.2f}".format(flight.ticket_price * passengers) }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Passenger Information Form Column -->
+        <div class="col-md-7">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white fw-bold">
+                    Passenger Information
+                </div>
+                <div class="card-body p-4">
+                    <form action="{{ url_for('book_flight', flight_id=flight.flight_id) }}" method="POST">
+                        <!-- Hidden field to carry the passenger count to the backend -->
+                        <input type="hidden" name="passengers" value="{{ passengers }}">
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Full Name</label>
+                            <input type="text" name="full_name" class="form-control" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Email Address</label>
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Phone Number</label>
+                                <input type="text" name="phone" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Identification / Passport Number</label>
+                            <input type="text" name="identification_number" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg w-100 fw-bold">Confirm Booking & Pay</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+:root {
+    --jasiri-primary: #0a2540;
+    --jasiri-accent: #f39c12;
+    --jasiri-light: #f8f9fa;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--jasiri-light);
+}
+
+.navbar {
+    background-color: var(--jasiri-primary) !important;
+    border-bottom: 3px solid var(--jasiri-accent);
+}
+
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #ffffff !important;
+}
+
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--jasiri-accent) !important;
+}
+
+.btn-primary {
+    background-color: var(--jasiri-accent);
+    border-color: var(--jasiri-accent);
+    color: var(--jasiri-primary);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #d68910;
+    border-color: #d68910;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+}
+
+.card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important;
+}
+
+.hero-section {
+    background: linear-gradient(rgba(10, 37, 64, 0.8), rgba(10, 37, 64, 0.8)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=80') center/cover;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+}
